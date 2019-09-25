@@ -1,8 +1,8 @@
 
 #include <iostream>
 //#define app_operator_cout
-#define app_object_slicing
-
+//#define app_object_slicing
+#define app_megative_modula
 #ifdef app_operator_cout
 class Base
 {
@@ -95,4 +95,12 @@ int main()
 
     return 0;
 }
+#endif
+#ifdef app_megative_modula
+int main() {
+    int x = -1234;
+    std::cout << x % 10 << std::endl;
+    return 0;
+}
+
 #endif

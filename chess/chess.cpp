@@ -116,11 +116,12 @@ std::optional<Piece> Board::getPieceAt(file_t f, rank_t r) const {
     return std::optional<Piece>{};
 }
 
-bool Board::addAPiece(Piece& p) {
+template <typename T>
+bool Board::addAPiece(T& p) {
     if (!p.isInBoard(p.mFile, p.mRank)) return false;
     auto opt = getPieceAt(p.mFile, p.mRank);    // opt is an optional value
     if (opt.has_value()) return false;
-    mPieces.push_back(std::make_unique<Piece>(p));
+    mPieces.push_back(std::make_unique<T>(p));
     return true;
 }
 void Board::moveAPiece(const Position& old, const Position& newP) {
@@ -133,10 +134,17 @@ void Board::moveAPiece(const Position& old, const Position& newP) {
 int main()
 {
     using namespace std;
+    string bks, wks, wqs;
+    cout << "Enter location of black King in the form of 'a1', 'h8' etc.: ";
+    cin >> bks;
+    cout << "Enter location of white King in the form of 'a1', 'h8' etc.: ";
+    cin >> wks;
+    cout << "Enter location of white queen in the form of 'a1', 'h8' etc.: ";
+    cin >> wqs;
 
-    King bk("bd4");
-    Queen wq("wf7");
-    King wk{ "wh3" };
+    King bk(("b"+bks).c_str());
+    Queen wq(("w"+wqs).c_str());
+    King wk{ ("w"+wks).c_str() };
 
     cout << bk << endl;
     cout << wq << endl;

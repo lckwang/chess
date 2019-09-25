@@ -80,7 +80,8 @@ protected:
 class Board {
 public:
     bool isValidMove(Piece p, file_t f, rank_t r, char c) const;  // Is the move valid at game level?
-    bool addAPiece(Piece&);  // Add a piece position to the game. Return true if basic check passes.
+    template <typename T>
+    bool addAPiece(T&);  // Add a piece position to the game. Return true if basic check passes.
     std::optional<Piece> getPieceAt(file_t f, rank_t r) const;
     void showPieces() const {
         std::for_each(mPieces.begin(), mPieces.end(), [](const std::unique_ptr<Piece>& p) {
