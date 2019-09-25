@@ -86,9 +86,9 @@ int main()
     B b2(3, 4);
     //b2.a_var==3 ,b2.b_var==4
     A& a2 = b2;
-    // Partial assignment by value through reference to b2
     a2.print();
 
+    // Partial assignment by value through reference to b2
     a2 = getB();
     // b2.a_var == 1, b2.b_var == 4!
     a2.print();

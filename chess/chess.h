@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <optional>
 #include <algorithm>
+#include <memory>
 
 typedef char file_t;
 typedef short rank_t;
@@ -82,12 +83,12 @@ public:
     bool addAPiece(Piece&);  // Add a piece position to the game. Return true if basic check passes.
     std::optional<Piece> getPieceAt(file_t f, rank_t r) const;
     void showPieces() const {
-        std::for_each(mPieces.begin(), mPieces.end(), [](const Piece& p) {
-            std::cout << p << " "; });
+        std::for_each(mPieces.begin(), mPieces.end(), [](const std::unique_ptr<Piece>& p) {
+            std::cout << *p << " "; });
         std::cout << std::endl;
     }
     // Move a piece from old position to new position. No valididty checks.
     void moveAPiece(const Position& old, const Position& newP);
 private:
-    std::vector<Piece> mPieces;
+    std::vector<std::unique_ptr<Piece>> mPieces;
 };

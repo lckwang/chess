@@ -110,8 +110,8 @@ Positions Queen::allValidPieceMove(Board& b) const {
 
 std::optional<Piece> Board::getPieceAt(file_t f, rank_t r) const {
     for (auto& p : mPieces) {
-        if (p.mFile == f && p.mRank == r)
-            return std::make_optional(p);
+        if ((*p).mFile == f && (*p).mRank == r)
+            return std::make_optional(*p);
     }
     return std::optional<Piece>{};
 }
@@ -120,13 +120,13 @@ bool Board::addAPiece(Piece& p) {
     if (!p.isInBoard(p.mFile, p.mRank)) return false;
     auto opt = getPieceAt(p.mFile, p.mRank);    // opt is an optional value
     if (opt.has_value()) return false;
-    mPieces.push_back(p);
+    mPieces.push_back(std::make_unique<Piece>(p));
     return true;
 }
 void Board::moveAPiece(const Position& old, const Position& newP) {
     for (auto& p : mPieces) {
-        if ((p.mFile == old.f) && (p.mRank == old.r))
-            p.setPos(newP);
+        if (((*p).mFile == old.f) && ((*p).mRank == old.r))
+            (*p).setPos(newP);
     }
 }
 
